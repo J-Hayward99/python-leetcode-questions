@@ -28,7 +28,8 @@ _plan_
 
 # IMPORTS
 from typing import List
-
+from typing import Optional
+from typing import ListNode
 
 # CONSTANTS
 
@@ -41,7 +42,16 @@ from typing import List
 # MAIN PIPELINE
 def main_pipeline():                                                                # This is the main pipeline of what the code runs
     check_pipeline()                                                                #   # This is used to check, leave as pass if not needed
-    Solution.question()
+    question_solution = Solution()
+    
+
+    # INITIAL QUESTION
+    print("--- Initial Answer ---")
+    
+
+    # optimised QUESTION
+    print("\n--- Optimised Answer ---")
+    
 
 def check_pipeline():                                                               # This is the pipeline that runs checks if required
     pass
@@ -49,8 +59,18 @@ def check_pipeline():                                                           
 
 # CLASSES 
 class Solution:
-    def question(self):
+    def initial_question(
+            self, 
+        ):
         pass
+
+
+
+    def optimised_question(
+            self, 
+        ):
+        pass
+
 
 
 

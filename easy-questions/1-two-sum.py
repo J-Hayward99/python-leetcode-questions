@@ -29,13 +29,15 @@ from typing import List
 # MAIN PIPELINE
 def main_pipeline():                                                                # This is the main pipeline of what the code runs
     check_pipeline()                                                                #   # This is used to check, leave as pass if not needed
+    question_solution = Solution()
     
+
     # INITIAL QUESTION
     print("--- Initial Answer ---")
-    question_solution = Solution()
     print(question_solution.initial_question(nums=[2,7,11,15],      target=9))      #   # First example test
     print(question_solution.initial_question(nums=[3,2,4],          target=6))      #   # Second example test
     print(question_solution.initial_question(nums=[3,3],            target=6))      #   # Third example test
+
 
     # optimised QUESTION
     print("\n--- Optimised Answer ---")
