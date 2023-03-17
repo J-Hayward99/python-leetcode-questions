@@ -1,27 +1,51 @@
 # DESCRIPTION
 """
-_summary_
+    You are given two non-empty linked lists representing two non-negative 
+    integers. The digits are stored in reverse order, and each of their nodes 
+    contains a single digit. Add the two numbers and return the sum as a linked 
+    list.
 
-"""
-
-
-# REQUIREMENTS
-"""
-_requirements_
+    You may assume the two numbers do not contain any leading zero, except the 
+    number 0 itself.
 
 """
 
 
 # NOTES
 """
-_other notes_
+    This was tested and passed on the Leetcode website
 
 """
 
 
 # PLAN
 """
-_plan_
+Initial question:
+    - Get values and make them into strings.
+    - Inverse those strings since that's the easiest way to reverse.
+    - Cast as ints then add them together.
+    - Cast as strings and reverse again.
+    - Since they are strings you can just iterate through the characters in a 
+      for loop (rather than making a system that decompiles and recompiles 
+      the number).
+    - Once you got the digits per loop, make a linked list for every digit.
+
+Optimised question:
+    - Initialise linked list head.
+    - Check that the linked lists aren't at their ends, or if the carried
+      number (overflow) is not zero.
+    - Create a while loop of these conditions.
+    - Get the values if they exist else assume zero.
+    - Calculate the number of the given digit column.
+    - Calculate the quotient and remainder to determine:
+    - - If there is a carried number (sum>=10 == carried=1) 
+        or not (sum<10 == carried=0).
+    - - What the unit value is from the sum.
+    - Create a new node with the value and like that node to the list.
+    - Repeat until the end of the lists and if there isn't a carried number.
+    - Return the head of the list's head.next value for the first actual
+      value in the list.
+
 
 """
 
