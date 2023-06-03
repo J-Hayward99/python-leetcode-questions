@@ -6,24 +6,21 @@ characters.
 """
 
 
-# REQUIREMENTS
-"""
-_requirements_
-
-"""
-
-
-# NOTES
-"""
-_other notes_
-
-"""
-
-
 # PLAN
 """
 Initial:
-    - Get the first repeating letter's locations
+    - Go through the string building a substring
+    - If there is a duplicate, the substring will remove everything before and
+      including that duplicate letter
+    - Then it will sort through the list of substrings to find the longest
+
+Improved:
+    - Make a window of two pointers
+    - The right side progresses as it goes through the string
+    - The left side progresses only if there's a duplicate letter
+    - - The left side will then become the duplicate's index
+    - While this is being done, the length of the window is compared and held
+      for the longest value
 
 """
 
@@ -48,8 +45,8 @@ def main_pipeline():                                                            
     # INITIAL QUESTION
     print("--- Initial Answer ---")
     question_solution.initial_question(s="abcabcbb")
-    # question_solution.initial_question(s="bbbbb")
-    # question_solution.initial_question(s="pwwkew")
+    question_solution.initial_question(s="bbbbb")
+    question_solution.initial_question(s="pwwkew")
 
     # optimised QUESTION
     print("\n--- Optimised Answer ---")
@@ -63,50 +60,66 @@ def check_pipeline():                                                           
 class Solution:
     def initial_question(
             self, s: str
-            ) -> int:
+        ) -> int:
         # INITIATION
-        rep_letters_loc     = [0]   #   # Finds repeated character, zero to help get strings
-        raw_substrings      = []    #   # Substrings between repeated character
+        substrings          = []
 
+        current_substring   = ""
+        longest_length      = 0
 
-        # GET REPEATING LETTERS
-        for character in range(len(s)-1):         #   # Index of characters excluding first and last one
-            print(s[character])
-            if s[character] == s[character+1]:      #   # If current character is equal to the next one
-                rep_letters_loc.append(character+1)
+        # ITERATE THROUGH STRING
+        for letter in s:
+            # Guard Clauses
+            if letter in current_substring:                                         #   # Found a repeating character
+                
+                substrings.append(current_substring)                                #   # Adds finished substrings to list
 
-
-        # GET SUBSTRINGS
-        for cur_index in rep_letters_loc:
-            # Make Substring            
-            if cur_index == rep_letters_loc[-1]:
-                substring = (
-                    s[cur_index:]
-            )
-            else:
-                substring = (
-                    s[cur_index:cur_index+1]
-            )
-            # Conditions             
-            if substring == "":                 #   # Empty cases
-                continue
-
-            if substring in raw_substrings:     #   # Repeated cases
-                continue
+                last_letter_loc     = current_substring.rfind(letter)+1
+                current_substring   = current_substring[last_letter_loc:]           #   # Make the new substring from the last repeat + 1
             
-            # Append
-            raw_substrings.append(substring)
+            # Append Letter
+            current_substring += letter                                             #   # Add the letter to the current substring
         
+        substrings.append(current_substring)
 
+        # FIND LONGEST SUBSTRING
+        for string in substrings:
+            if len(string) > longest_length:                                        #   # Check and hold loop
+                longest_length = len(string)
 
-        print(raw_substrings)
-        print(len(max(raw_substrings)))
+        return longest_length
 
 
     def optimised_question(
-            self, 
-        ):
-        pass
+            self, s: str
+        ) -> int:
+        # INITIATION
+        longest_length      = 0
+        s_length_range      = range(len(s))                                         #   # Makes a list of index for s
+
+        left_index          = 0
+
+        char_dict           = {}
+
+        # ITERATE THROUGH STRING
+        for right_index in s_length_range:
+            # Initialise
+            letter = s[right_index]
+
+            # Duplicate Letter
+            if (letter in char_dict) and (char_dict[letter] > left_index):          #   # Checks if the letter has been used before if so, is newer
+                left_index = char_dict[letter]                                      #   # Make the new index that letter
+            
+            # Answer Logic
+            index_difference = right_index - left_index + 1
+            
+            if index_difference > longest_length:
+                longest_length  = index_difference
+
+            # Pointers Logic
+            char_dict[letter]   = right_index + 1
+        
+        return longest_length
 
 
 
